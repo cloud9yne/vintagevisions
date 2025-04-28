@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Visions Web Design</title>
+    <style>
+        /* Color Variables */
+        :root {
+            --primary: #222831;
+            --secondary: #393E46;
+            --accent1: #948979;
+            --accent2: #DFD0B8;
+        }
+        
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--accent2);
+            color: var(--primary);
+            line-height: 1.6;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Times New Roman', Times, serif;
+            letter-spacing: 1px;
+        }
+        
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--primary);
+            color: var(--accent2);
+            padding: 20px 0;
+            position: relative;
+            border-bottom: 5px solid var(--accent1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+        }
+        
+        .logo::after {
+            content: "EST. 2025";
+            position: absolute;
+            bottom: -10px;
+            left: 5px;
+            font-size: 12px;
+            font-weight: normal;
+            letter-spacing: 1px;
+            color: var(--accent1);
+        }
+        
+        /* Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 30px;
+        }
+        
+        nav a {
+            color: var(--accent2);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+            letter-spacing: 1px;
+            padding: 5px 10px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        nav a:hover, nav a.active {
+            border: 1px solid var(--accent1);
+            color: var(--accent1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 500px;
+            background-color: var(--secondary);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--accent2);
+            border-bottom: 5px solid var(--accent1);
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("/api/placeholder/1200/500");
+            background-size: cover;
+            opacity: 0.2;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            border-top: 2px solid var(--accent1);
+            border-bottom: 2px solid var(--accent1);
+            padding: 20px 0;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent1);
+            color: var(--primary);
+            padding: 12px 24px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent2);
+        }
+        
+        /* Portfolio Section */
+        .portfolio {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--accent1);
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .portfolio-item {
+            background-color: var(--primary);
+            color: var(--accent2);
+            overflow: hidden;
+            position: relative;
+            height: 300px;
+            border: 5px solid var(--accent1);
+        }
+        
+        .portfolio-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, var(--primary), transparent);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .portfolio-item:hover .portfolio-img {
+            opacity: 0.4;
+        }
+        
+        .portfolio-title {
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background-color: var(--secondary);
+            color: var(--accent2);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-img {
+            width: 40%;
+            border: 5px solid var(--accent1);
+        }
+        
+        .about-text {
+            width: 60%;
+        }
+        
+        .about-text h3 {
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            color: var(--accent1);
+        }
+        
+        /* Process Section */
+        .process {
+            padding: 80px 0;
+        }
+        
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+        }
+        
+        .process-step {
+            text-align: center;
+            width: 22%;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--accent1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        .process-step::after {
+            content: "";
+            position: absolute;
+            top: 30px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent1);
+            z-index: -1;
+        }
+        
+        .process-step:last-child::after {
+            display: none;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background-color: var(--primary);
+            color: var(--accent2);
+        }
+        
+        .contact-content {
+            display: flex;
+            gap: 50px;
+        }
+        
+        .contact-info {
+            width: 40%;
+        }
+        
+        .contact-form {
+            width: 60%;
+        }
+        
+        .contact-info h3, .contact-form h3 {
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            color: var(--accent1);
+        }
+        
+        .contact-info p {
+            margin-bottom: 20px;
+        }
+        
+        .contact-info a {
+            color: var(--accent2);
+            text-decoration: none;
+        }
+        
+        .contact-info a:hover {
+            color: var(--accent1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--secondary);
+            border: 1px solid var(--accent1);
+            color: var(--accent2);
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent2);
+        }
+        
+        textarea {
+            height: 150px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: var(--accent2);
+            padding: 30px 0;
+            text-align: center;
+            border-top: 5px solid var(--accent1);
+        }
+        
+        .social-links {
+            margin-bottom: 20px;
+        }
+        
+        .social-links a {
+            color: var(--accent2);
+            font-size: 18px;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent1);
+        }
+        
+        .footer-nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .footer-nav li {
+            margin: 0 15px;
+        }
+        
+        .footer-nav a {
+            color: var(--accent2);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        
+        .footer-nav a:hover {
+            color: var(--accent1);
+        }
+        
+        .copyright {
+            font-size: 14px;
+            color: var(--accent1);
+        }
+        
+        /* Vintage Effects */
+        .vintage-border {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background-image: 
+                linear-gradient(to right, var(--primary) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--primary) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: center;
+            opacity: 0.05;
+        }
+        
+        .vintage-vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.7);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-img, .about-text {
+                width: 100%;
+            }
+            
+            .process-steps {
+                flex-wrap: wrap;
+            }
+            
+            .process-step {
+                width: 45%;
+                margin-bottom: 30px;
+            }
+            
+            .process-step::after {
+                display: none;
+            }
+            
+            .contact-content {
+                flex-direction: column;
+            }
+            
+            .contact-info, .contact-form {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            .logo {
+                margin-bottom: 20px;
+            }
+            
+            nav ul {
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-step {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Vintage Effects -->
+    <div class="vintage-border"></div>
+    <div class="vintage-vignette"></div>
+    
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">Vintage Visions</div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Proactive Web Design</h1>
+            <p>We craft speculative vintage-inspired websites for local businesses, transforming their online presence before they even know they need it.</p>
+            <a href="#portfolio" class="btn">View Our Work</a>
+        </div>
+    </section>
+    
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <h2 class="section-title">Our Portfolio</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="/api/placeholder/400/300" alt="Local Bakery Website" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3 class="portfolio-title">Sweet Traditions Bakery</h3>
+                        <p>A nostalgic design for a family-owned bakery with online ordering capabilities.</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="/api/placeholder/400/300" alt="Barber Shop Website" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3 class="portfolio-title">Classic Cuts Barber</h3>
+                        <p>Vintage barbershop aesthetics with modern appointment booking system.</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="/api/placeholder/400/300" alt="Bookstore Website" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3 class="portfolio-title">Forgotten Pages Bookstore</h3>
+                        <p>Antiquarian charm with integrated inventory management.</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="/api/placeholder/400/300" alt="Coffee Shop Website" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3 class="portfolio-title">Percolate Coffee House</h3>
+                        <p>Mid-century modern design with loyalty program integration.</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="/api/placeholder/400/300" alt="Record Store Website" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3 class="portfolio-title">Vinyl Revival Records</h3>
+                        <p>Retro-inspired e-commerce solution for a local record store.</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="/api/placeholder/400/300" alt="Tailor Shop Website" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3 class="portfolio-title">Bespoke Threads Tailor</h3>
+                        <p>Elegant, old-world craftsmanship aesthetic with modern scheduling tools.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <img src="/api/placeholder/500/400" alt="About Us" class="about-img">
+                <div class="about-text">
+                    <h3>Visionaries in Vintage Web Design</h3>
+                    <p>At Vintage Visions, we believe local businesses deserve distinctive online presences that honor their history while embracing modern functionality. Our approach is unique: we proactively design websites for businesses we believe in, presenting fully-realized visions that merge retro aesthetics with contemporary utility.</p>
+                    <p>Each design tells a story, capturing the essence of your business through carefully curated typography, color schemes, and visual elements that evoke a sense of timeless quality and craftsmanship.</p>
+                    <p>When we present our speculative designs, businesses are often amazed to see themselves represented in ways they hadn't imagined—yet instantly recognize as authentic to their brand.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Process Section -->
+    <section class="process">
+        <div class="container">
+            <h2 class="section-title">Our Process</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Research</h3>
+                    <p>We discover local businesses with potential for digital transformation.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Design</h3>
+                    <p>We craft a complete, vintage-inspired website solution.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Present</h3>
+                    <p>We showcase our vision to the business owner.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Refine</h3>
+                    <p>We collaborate to perfect the final implementation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p>Have a local business in mind that could benefit from our services? Or perhaps you've seen our work and would like us to create a speculative design for your business? Reach out to us.</p>
+                    <p><strong>Address:</strong> 123 Vintage Street, Craftsman District</p>
+                    <p><strong>Phone:</strong> (555) 123-4567</p>
+                    <p><strong>Email:</strong> hello@vintagevisions.com</p>
+                    <p><strong>Hours:</strong> Monday-Friday: 9am - 5pm</p>
+                </div>
+                <div class="contact-form">
+                    <h3>Send Us A Message</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#">Instagram</a>
+                <a href="#">Pinterest</a>
+                <a href="#">Dribbble</a>
+                <a href="#">Behance</a>
+            </div>
+            <nav class="footer-nav">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </nav>
+            <p class="copyright">© 2025 Vintage Visions. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
